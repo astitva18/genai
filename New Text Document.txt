@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>vitB Campus — VIT Bhopal</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;500&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --neon-blue: #00f3ff; --neon-purple: #bc13fe; --neon-pink: #ff00ff;
+  --bg: #050505; --surface: #0a0a0c; --border: #1a1a1f; --text: #e0e0e0;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; cursor: crosshair; }
+body {
+  font-family: 'JetBrains Mono', monospace; background: var(--bg); color: var(--text);
+  overflow-x: hidden; font-size: 13px; line-height: 1.4;
+}
+/* ── NEON ANIMATIONS ── */
+@keyframes scanline { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
+body::after {
+  content: ""; position: fixed; inset: 0; background: linear-gradient(0deg, transparent 50%, rgba(0, 243, 255, 0.02) 50%);
+  background-size: 100% 4px; z-index: 10; pointer-events: none; animation: scanline 10s linear infinite;
+}
+
+/* ── COMPACT NAV ── */
+.topbar {
+  position: sticky; top: 0; z-index: 100; background: rgba(5,5,5,0.9);
+  border-bottom: 2px solid var(--neon-blue); display: flex; align-items: center;
+  justify-content: space-between; padding: 0 1.5rem; height: 50px; box-shadow: 0 0 15px rgba(0,243,255,0.2);
+}
+.logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 18px; color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue); letter-spacing: 1px; }
+.nav { display: flex; gap: 10px; }
+.nav-btn {
+  background: none; border: 1px solid transparent; color: #666; font-family: 'Orbitron';
+  font-size: 10px; padding: 5px 10px; border-radius: 4px; transition: 0.3s;
+}
+.nav-btn:hover, .nav-btn.active { color: var(--neon-blue); border-color: var(--neon-blue); text-shadow: 0 0 8px var(--neon-blue); }
+
+.user-pill { text-align: right; border-left: 1px solid var(--border); padding-left: 15px; }
+.user-name { font-family: 'Orbitron'; font-size: 11px; color: var(--neon-purple); }
+.user-id { font-size: 9px; color: #555; }
+
+/* ── LAYOUT ── */
+.view { display: none; padding: 1rem; max-width: 1000px; margin: 0 auto; animation: glitch 0.3s ease; }
+.view.active { display: grid; grid-template-columns: 1fr 300px; gap: 1.5rem; }
+@keyframes glitch { 0% { opacity: 0; transform: skewX(10deg); } 100% { opacity: 1; transform: skewX(0); } }
+
+/* ── PROCTOR NEWS ── */
+.news-panel {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 4px;
+  padding: 10px; height: fit-content;
+}
+.news-header { font-family: 'Orbitron'; color: var(--neon-pink); font-size: 11px; margin-bottom: 10px; border-bottom: 1px solid var(--border); }
+.news-item { font-size: 11px; padding: 8px 0; border-bottom: 1px dashed #222; }
+.news-tag { color: var(--neon-blue); font-size: 9px; display: block; }
+
+/* ── STATS & CARDS ── */
+.grid-main { display: flex; flex-direction: column; gap: 1rem; }
+.stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.stat-card {
+  background: #0e0e12; border: 1px solid var(--border); padding: 10px; text-align: center;
+  border-bottom: 2px solid var(--neon-purple);
+}
+.stat-val { font-family: 'Orbitron'; font-size: 20px; color: #fff; }
+
+.r-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+.r-card {
+  background: #0e0e12; border: 1px solid var(--border); padding: 12px; transition: 0.2s;
+  position: relative; overflow: hidden;
+}
+.r-card:hover { border-color: var(--neon-blue); transform: translateY(-3px); }
+.r-card.selected { border-color: var(--neon-pink); box-shadow: 0 0 10px rgba(255,0,255,0.2); }
+
+/* ── SLOTS ── */
+.slot-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin: 15px 0; }
+.slot {
+  background: #15151a; border: 1px solid var(--border); padding: 8px; font-size: 10px;
+  text-align: center; cursor: pointer; transition: 0.1s;
+}
+.slot:hover { border-color: var(--neon-blue); color: var(--neon-blue); }
+.slot.sel { background: var(--neon-blue); color: #000; font-weight: bold; }
+
+/* ── FORM ── */
+.f-input {
+  background: #000; border: 1px solid var(--border); color: var(--neon-blue);
+  padding: 8px; width: 100%; margin-top: 5px; font-family: 'JetBrains Mono';
+}
+.btn-main {
+  width: 100%; padding: 12px; margin-top: 10px; background: none;
+  border: 1px solid var(--neon-purple); color: var(--neon-purple);
+  font-family: 'Orbitron'; font-weight: bold; cursor: pointer; transition: 0.3s;
+}
+.btn-main:hover { background: var(--neon-purple); color: #fff; box-shadow: 0 0 20px var(--neon-purple); }
+
+.alert { font-size: 11px; padding: 10px; margin: 10px 0; border: 1px solid; display: none; }
+.alert-success { color: var(--neon-blue); border-color: var(--neon-blue); background: rgba(0,243,255,0.05); }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">vitB_CAMPUS_v2.0</div>
+  <nav class="nav">
+    <button class="nav-btn active" onclick="showView('home',this)">DASHBOARD</button>
+    <button class="nav-btn" onclick="showView('book',this)">TERMINAL_BOOK</button>
+    <button class="nav-btn" onclick="showView('mybookings',this)">MY_SLOTS</button>
+  </nav>
+  <div class="user-pill">
+    <div class="user-name">Mishika Mishra</div>
+    <div class="user-id">25BAIXXXXX</div>
+  </div>
+</div>
+
+<div class="view active" id="view-home">
+  <div class="grid-main">
+    <div class="stat-row">
+      <div class="stat-card"><div style="font-size:9px">SYSTEM_ONLINE</div><div class="stat-val" style="color:var(--neon-blue)" id="s-avail">12</div></div>
+      <div class="stat-card"><div style="font-size:9px">ACTIVE_SLOTS</div><div class="stat-val" style="color:var(--neon-purple)" id="s-mine">0</div></div>
+      <div class="stat-card"><div style="font-size:9px">DEMAND_INDEX</div><div class="stat-val" style="color:var(--neon-pink)">HIGH</div></div>
+      <div class="stat-card"><div style="font-size:9px">LATENCY</div><div class="stat-val" style="color:var(--neon-blue)">2ms</div></div>
+    </div>
+    
+    <div style="background:rgba(188, 19, 254, 0.05); border:1px solid var(--neon-purple); padding:15px; font-size:12px;">
+      <span style="color:var(--neon-purple)">[AI_SUGGESTION]</span> <span id="ai-home-text">Scan complete. AB1-301 is optimal for your 2PM study block.</span>
+    </div>
+
+    <div class="r-grid" id="home-grid"></div>
+  </div>
+
+  <aside class="news-panel">
+    <div class="news-header">PROCTOR_COMMAND_FEED</div>
+    <div id="proctor-news">
+      <div class="news-item"><span class="news-tag">URGENT // 10:45</span> All students must verify Lab exit logs.</div>
+      <div class="news-item"><span class="news-tag">INFO // 09:12</span> Maintenance in AB2 Floor 3 during weekend.</div>
+      <div class="news-item"><span class="news-tag">ALERT // 08:00</span> New attendance policy updated in portal.</div>
+    </div>
+  </aside>
+</div>
+
+<div class="view" id="view-book">
+  <div class="grid-main">
+    <div style="display:flex; gap:5px; margin-bottom:10px;">
+      <button class="nav-btn active" style="font-size:9px" onclick="switchTab('lab',this)">[LABS]</button>
+      <button class="nav-btn" style="font-size:9px" onclick="switchTab('lib',this)">[LIBRARY]</button>
+      <button class="nav-btn" style="font-size:9px" onclick="switchTab('audi',this)">[AUDI]</button>
+    </div>
+    <div class="r-grid" id="book-grid"></div>
+  </div>
+
+  <div class="news-panel">
+    <div class="news-header">SLOT_CONFIG</div>
+    <div style="font-size:10px; margin-bottom:5px;">RESOURCE: <span id="bp-res-name" style="color:var(--neon-blue)">-</span></div>
+    <div class="slot-grid" id="slot-grid"></div>
+    <input type="date" id="f-date" class="f-input">
+    <input type="text" id="f-purpose" class="f-input" placeholder="ACCESS_PURPOSE">
+    <div class="alert alert-success" id="alert-success">SLOT_LOCKED_SUCCESSFULLY</div>
+    <button class="btn-main" onclick="confirmBooking()">EXECUTE_RESERVATION</button>
+  </div>
+</div>
+
+<div class="view" id="view-mybookings">
+  <div class="grid-main" id="mb-list"></div>
+  <div class="news-panel">
+    <div class="news-header">SYSTEM_LOG</div>
+    <div style="font-size:9px; color:#555;">Bookings are auto-released after 15 mins of no-show.</div>
+  </div>
+</div>
+
+<script>
+const DB_RESOURCES = [
+  {id:1,name:"CS Lab AB1-301",cat:"lab",emoji:"[CPU]",loc:"AB1-F3",fill:30},
+  {id:2,name:"CS Lab AB2-202",cat:"lab",emoji:"[CPU]",loc:"AB2-F2",fill:65},
+  {id:5,name:"Main Library",cat:"lib",emoji:"[DB]",loc:"AB1-G",fill:40},
+  {id:7,name:"Audi 1",cat:"audi",emoji:"[AMP]",loc:"AB1-G",fill:10},
+];
+
+const slots=["09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00"];
+let myBookings = [], selRes=null, selSlot=null;
+
+function showView(v,btn){
+  document.querySelectorAll('.view').forEach(el=>el.style.display='none');
+  document.querySelectorAll('.nav-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('view-'+v).style.display='grid';
+  btn.classList.add('active');
+  if(v==='mybookings') renderMyBookings();
+}
+
+function renderGrid(containerId, list){
+  document.getElementById(containerId).innerHTML = list.map(r=>`
+    <div class="r-card ${selRes?.id===r.id?'selected':''}" onclick="selectRes(${r.id})">
+      <div style="color:var(--neon-blue); font-size:10px;">${r.emoji}</div>
+      <div style="font-family:Orbitron; font-size:12px; margin:5px 0;">${r.name}</div>
+      <div style="font-size:9px; color:#666;">${r.loc} | LOAD: ${r.fill}%</div>
+      <div style="height:2px; background:#222; margin-top:8px;"><div style="width:${r.fill}%; height:100%; background:var(--neon-purple);"></div></div>
+    </div>
+  `).join('');
+}
+
+function selectRes(id){
+  selRes = DB_RESOURCES.find(r=>r.id===id);
+  document.getElementById('bp-res-name').textContent = selRes.name;
+  renderSlots();
+  document.querySelectorAll('.r-card').forEach(c=>c.classList.remove('selected'));
+}
+
+function renderSlots(){
+  document.getElementById('slot-grid').innerHTML = slots.map(s=>`
+    <div class="slot ${selSlot===s?'sel':''}" onclick="selSlot='${s}';renderSlots()">${s}</div>
+  `).join('');
+}
+
+function confirmBooking(){
+  if(!selRes || !selSlot) return;
+  myBookings.push({ id: Math.random().toString(16).slice(2,8).toUpperCase(), res: selRes.name, slot: selSlot });
+  document.getElementById('alert-success').style.display='block';
+  document.getElementById('s-mine').textContent = myBookings.length;
+  setTimeout(()=>document.getElementById('alert-success').style.display='none', 2000);
+}
+
+function renderMyBookings(){
+  document.getElementById('mb-list').innerHTML = myBookings.map(b=>`
+    <div class="r-card" style="display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <div style="color:var(--neon-blue); font-family:Orbitron;">${b.res}</div>
+        <div style="font-size:10px;">TIME: ${b.slot} | AUTH: ${b.id}</div>
+      </div>
+      <button class="nav-btn" style="border-color:var(--neon-pink); color:var(--neon-pink)" onclick="cancel('${b.id}')">TERMINATE</button>
+    </div>
+  `).join('') || '<div style="color:#444">NO_ACTIVE_RESERVATIONS</div>';
+}
+
+function cancel(id){
+  myBookings = myBookings.filter(b=>b.id!==id);
+  renderMyBookings();
+  document.getElementById('s-mine').textContent = myBookings.length;
+}
+
+function switchTab(cat, btn){
+  renderGrid('book-grid', DB_RESOURCES.filter(r=>r.cat===cat));
+  document.querySelectorAll('#view-book .nav-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+renderGrid('home-grid', DB_RESOURCES);
+renderGrid('book-grid', DB_RESOURCES.filter(r=>r.cat==='lab'));
+renderSlots();
+</script>
+</body>
+</html>
