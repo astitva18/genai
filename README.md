@@ -51,7 +51,7 @@ The interface uses a high-contrast "Neon" aesthetic (blues, purples, and pinks) 
 
 ## 🔗 Submission Links
 * **Live Deployment**: https://genaihackathon.netlify.app/
-* **GitHub Repository**: [INSERT_YOUR_GITHUB_REPO_LINK_HERE]
+* **GitHub Repository**: https://github.com/astitva18/genai
 
 ## 🛠️ Local Setup
 To run this project locally:
