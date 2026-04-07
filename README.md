@@ -47,4 +47,4 @@ The interface uses a high-contrast "Neon" aesthetic (blues, purples, and pinks) 
 * **Visual Effects**: Includes "Scanline" animations and "Glitch" transitions to maintain the digital terminal vibe.
 ---
 
-##Live Link - https://taupe-fudge-d22b7f.netlify.app/
+##Live Link - https://genaihackathon.netlify.app/
