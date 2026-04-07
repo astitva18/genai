@@ -45,3 +45,6 @@ The interface uses a high-contrast "Neon" aesthetic (blues, purples, and pinks) 
 * **Language**: Built using standard HTML5, CSS3, and JavaScript.
 * **Fonts**: Uses *Orbitron* for a sci-fi look and *JetBrains Mono* for technical data.
 * **Visual Effects**: Includes "Scanline" animations and "Glitch" transitions to maintain the digital terminal vibe.
+---
+
+##Live Link - https://taupe-fudge-d22b7f.netlify.app/
