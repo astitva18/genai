@@ -1173,7 +1173,7 @@ body::after {
             <td class="tt-slot-active"><span class="tt-subject">ENG2005</span><span class="tt-venue">AB-419</span></td>
           </tr>
 	<tr>
-            <td class="day-label">TUE</td>
+            <td class="day-label">THU</td>
             <td>D12</td>
             <td>E12</td>
             <td>F12</td>
