@@ -47,4 +47,13 @@ The interface uses a high-contrast "Neon" aesthetic (blues, purples, and pinks) 
 * **Visual Effects**: Includes "Scanline" animations and "Glitch" transitions to maintain the digital terminal vibe.
 ---
 
-##Live Link - https://genaihackathon.netlify.app/
+---
+
+## 🔗 Submission Links
+* **Live Deployment**: https://genaihackathon.netlify.app/
+* **GitHub Repository**: [INSERT_YOUR_GITHUB_REPO_LINK_HERE]
+
+## 🛠️ Local Setup
+To run this project locally:
+1. Clone the repository: `git clone [INSERT_YOUR_GITHUB_REPO_LINK_HERE]`
+2. Open `index.html` in any modern web browser.
